@@ -99,6 +99,10 @@
 
       formatter = forAllSystems (system: (makePkgs system).nixfmt-tree);
 
+      checks.x86_64-linux = {
+        treefmt = self.formatter.x86_64-linux.check self;
+      };
+
       hydraJobs = lib.mapAttrs (
         name: attrs:
         {
