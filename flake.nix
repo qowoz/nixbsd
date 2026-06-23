@@ -102,9 +102,11 @@
       hydraJobs = lib.mapAttrs (
         name: attrs:
         {
+        }
+        // lib.optionalAttrs (attrs ? vm && attrs.vm != null) {
           inherit (attrs) vm;
         }
-        // lib.optionalAttrs (attrs.systemImage != null) {
+        // lib.optionalAttrs (attrs ? systemImage && attrs.systemImage != null) {
           inherit (attrs) systemImage;
         }
       ) self.packages.x86_64-linux;
