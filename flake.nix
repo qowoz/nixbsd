@@ -101,7 +101,19 @@
 
       checks.x86_64-linux = {
         treefmt = self.formatter.x86_64-linux.check self;
-      };
+      }
+      // lib.mapAttrs (_: attrs: attrs.toplevel) (
+        lib.filterAttrs (
+          name: attrs:
+          attrs ? toplevel
+          && !(builtins.elem name [
+            "freebsd-jails"
+            "graphical"
+            "openbsd-base"
+            "openbsd-nginx"
+          ])
+        ) self.packages.x86_64-linux
+      );
 
       hydraJobs = lib.mapAttrs (
         name: attrs:
