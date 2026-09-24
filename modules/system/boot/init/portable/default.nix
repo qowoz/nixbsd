@@ -66,6 +66,8 @@ with lib;
                 '';
               };
 
+              restart = mkEnableOption { };
+
               pidFile = mkOption {
                 type = types.nullOr types.path;
                 default = null;
@@ -120,6 +122,14 @@ with lib;
                 ];
                 default = "TERM";
                 description = "Signal to send to the program as the first-shot shutdown notice.";
+              };
+
+              requiredFiles = mkOption {
+                type = types.nullOr (types.listOf types.path);
+                default = null;
+                description = ''
+                  Files that must exist and be readable before the service can be started.
+                '';
               };
 
               environment = mkOption {

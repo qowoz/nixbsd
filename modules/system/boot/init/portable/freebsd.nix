@@ -31,6 +31,9 @@ let
         ++ lib.optionals (!cfg.defaultLog.enable) [
           "-S"
         ]
+        ++ lib.optionals cfg.restart [
+          "-r"
+        ]
         ++ [
           "--"
         ]
@@ -53,6 +56,9 @@ let
       }
       // optionalAttrs (cfg.directory != null) {
         "${convertName cfg.name}_chdir" = cfg.directory;
+      }
+      // optionalAttrs (cfg.requiredFiles != null) {
+        required_files = concatStringsSep " " cfg.requiredFiles;
       }
       // optionalAttrs (cfg.environment != null) cfg.environment
       // optionalAttrs (cfg.environmentFile != null) {
