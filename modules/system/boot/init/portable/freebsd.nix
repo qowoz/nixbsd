@@ -54,6 +54,9 @@ let
       // optionalAttrs (cfg.directory != null) {
         "${convertName cfg.name}_chdir" = cfg.directory;
       }
+      // optionalAttrs (cfg.requiredFiles != null) {
+        required_files = concatStringsSep " " cfg.requiredFiles;
+      }
       // optionalAttrs (cfg.environment != null) cfg.environment
       // optionalAttrs (cfg.environmentFile != null) {
         "${convertName cfg.name}_env_file" = cfg.environmentFile;
