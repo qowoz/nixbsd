@@ -17,7 +17,7 @@ let
       PROVIDE = builtins.map convertName cfg.provides;
     };
 
-    inherit (cfg) path defaultLog;
+    inherit (cfg) path defaultLog environment;
 
     shellVariables =
       optionalAttrs (cfg.startType == "foreground") {
@@ -60,7 +60,6 @@ let
       // optionalAttrs (cfg.requiredFiles != null) {
         required_files = concatStringsSep " " cfg.requiredFiles;
       }
-      // optionalAttrs (cfg.environment != null) cfg.environment
       // optionalAttrs (cfg.environmentFile != null) {
         "${convertName cfg.name}_env_file" = cfg.environmentFile;
       };

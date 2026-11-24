@@ -83,7 +83,9 @@ let
 
           export PATH=${escapeShellArg pathStr}
           ${lib.concatStringsSep "\n" (
-            lib.mapAttrsToList (k: v: "export ${k}=\"${formatScriptLiteral v}\"") config.init.environment
+            lib.mapAttrsToList (k: v: "export ${k}=\"${formatScriptLiteral v}\"") (
+              config.init.environment // opts.environment
+            )
           )}
 
           . /etc/rc.subr
@@ -124,7 +126,7 @@ let
       ''
       + concatStrings (
         mapAttrsToList (name: script: ''
-          ln -s ${makeRcScript script} $out/${script.name} 
+          ln -s ${makeRcScript script} $out/${script.name}
         '') scripts
       )
     );
